@@ -22,3 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+auto-imports.d.ts
+components.d.ts
+_ide_helper.php
