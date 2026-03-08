@@ -3,5 +3,5 @@
 use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('{path}', AppController::class);
+Route::get('{path}', AppController::class)->where('path', '.*');
 
