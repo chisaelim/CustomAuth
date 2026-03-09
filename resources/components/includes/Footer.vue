@@ -1,0 +1,26 @@
+<template>
+  <footer class="footer">
+    <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
+      <span>Copyright ©</span>
+      2025-2026
+    </p>
+    <p>
+      <span
+        >By:
+        <a target="_blank" href="https://wrapbootstrap.com/user/theme_ocean"
+          >theme_ocean</a
+        ></span
+      >
+      •
+      <span
+        >Distributed by:
+        <a target="_blank" href="https://themewagon.com">ThemeWagon</a></span
+      >
+    </p>
+    <div class="d-flex align-items-center gap-4">
+      <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Help</a>
+      <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Terms</a>
+      <a href="javascript:void(0);" class="fs-11 fw-semibold text-uppercase">Privacy</a>
+    </div>
+  </footer>
+</template>
