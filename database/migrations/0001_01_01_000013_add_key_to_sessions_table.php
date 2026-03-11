@@ -11,11 +11,11 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('sessions', function (Blueprint $table) {
-            $table
-                ->foreign('user_id', 'sessions_user_id_foreign')
+            $table->foreign(['user_id'], 'sessions_user_ibfk_1')
                 ->references('id')
                 ->on('users')
-                ->nullOnDelete();
+                ->onUpdate('restrict')
+                ->onDelete('cascade');
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('sessions', function (Blueprint $table) {
-            $table->dropForeign('sessions_user_id_foreign');
+            $table->dropForeign('sessions_user_ibfk_1');
         });
     }
 };
