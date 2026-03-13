@@ -17,8 +17,10 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasRoles, HasUuids, Notifiable, SoftDeletes;
 
+    protected $table = 'users';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
-
+    public $timestamps = true;
     public $incrementing = false;
 
     /**

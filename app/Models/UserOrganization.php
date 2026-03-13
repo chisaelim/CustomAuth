@@ -9,12 +9,10 @@ class UserOrganization extends Model
 {
     use HasUuids;
 
-    public $timestamps = false;
-
     protected $table = 'user_organizations';
-
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
-
+    public $timestamps = false;
     public $incrementing = false;
 
     protected $fillable = [

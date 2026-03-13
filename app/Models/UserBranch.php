@@ -9,12 +9,10 @@ class UserBranch extends Model
 {
     use HasUuids;
 
-    public $timestamps = false;
-
     protected $table = 'user_branches';
-
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
-
+    public $timestamps = false;
     public $incrementing = false;
 
     protected $fillable = [

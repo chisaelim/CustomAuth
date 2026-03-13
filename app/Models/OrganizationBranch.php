@@ -9,12 +9,10 @@ class OrganizationBranch extends Model
 {
     use HasUuids;
 
-    public $timestamps = false;
-
     protected $table = 'organization_branches';
-
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
-
+    public $timestamps = false;
     public $incrementing = false;
 
     protected $fillable = [

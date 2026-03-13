@@ -9,7 +9,9 @@ class Permission extends SpatiePermission
 {
     use HasUuids;
 
+    protected $table = 'permissions';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
-
+    public $timestamps = false;
     public $incrementing = false;
 }

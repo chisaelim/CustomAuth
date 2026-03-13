@@ -12,8 +12,10 @@ class Organization extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
+    protected $table = 'organizations';
+    protected $primaryKey = 'id';
     protected $keyType = 'string';
-
+    public $timestamps = true;
     public $incrementing = false;
 
     protected $fillable = [
