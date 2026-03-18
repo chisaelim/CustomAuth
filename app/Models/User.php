@@ -75,13 +75,8 @@ class User extends Authenticatable
         return static::query()->whereLogin($login)->first();
     }
 
-    public function organizations(): BelongsToMany
+    public function divisions(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\Organization::class, 'user_organizations', 'user_id', 'organization_id');
-    }
-
-    public function branches(): BelongsToMany
-    {
-        return $this->belongsToMany(\App\Models\Branch::class, 'user_branches', 'user_id', 'branch_id');
+        return $this->belongsToMany(\App\Models\Division::class, 'user_divisions', 'user_id', 'division_id');
     }
 }

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class UserOrganization extends Model
+class UserDivision extends Model
 {
     use HasUuids;
 
-    protected $table = 'user_organizations';
+    protected $table = 'user_divisions';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = false;
@@ -17,6 +17,6 @@ class UserOrganization extends Model
 
     protected $fillable = [
         'user_id',
-        'organization_id',
+        'division_id',
     ];
 }

@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class UserBranch extends Model
+class DivisionDivision extends Model
 {
     use HasUuids;
 
-    protected $table = 'user_branches';
+    protected $table = 'division_divisions';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = false;
     public $incrementing = false;
 
     protected $fillable = [
-        'user_id',
-        'branch_id',
+        'division_id',
+        'sub_division_id',
     ];
 }

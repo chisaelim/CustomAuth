@@ -11,6 +11,9 @@ npm install
 wait $!
 
 # Generate key and run migrations first
+php artisan db:wipe --force
+wait $!
+
 php artisan key:generate --force
 wait $!
 

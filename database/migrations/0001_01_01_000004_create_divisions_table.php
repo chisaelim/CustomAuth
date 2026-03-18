@@ -10,10 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user_branches', function (Blueprint $table) {
+        Schema::create('divisions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id');
-            $table->uuid('branch_id');
+            $table->string('name');
+            $table->enum('rank', ['RANK1', 'RANK2']);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_branches');
+        Schema::dropIfExists('divisions');
     }
 };

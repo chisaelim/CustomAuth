@@ -10,17 +10,17 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('organization_branches', function (Blueprint $table) {
+        Schema::table('user_divisions', function (Blueprint $table) {
             $table
-                ->foreign(['organization_id'], 'organization_branches_ibfk_1')
+                ->foreign(['user_id'], 'user_divisions_ibfk_1')
                 ->references('id')
-                ->on('organizations')
+                ->on('users')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
             $table
-                ->foreign(['branch_id'], 'organization_branches_ibfk_2')
+                ->foreign(['division_id'], 'user_divisions_ibfk_2')
                 ->references('id')
-                ->on('branches')
+                ->on('divisions')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
         });
@@ -31,9 +31,9 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('organization_branches', function (Blueprint $table) {
-            $table->dropForeign('organization_branches_ibfk_1');
-            $table->dropForeign('organization_branches_ibfk_2');
+        Schema::table('user_divisions', function (Blueprint $table) {
+            $table->dropForeign('user_divisions_ibfk_1');
+            $table->dropForeign('user_divisions_ibfk_2');
         });
     }
 };

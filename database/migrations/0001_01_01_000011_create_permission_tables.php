@@ -41,8 +41,9 @@ return new class extends Migration {
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
                 $table->foreign($columnNames['team_foreign_key'])
                     ->references('id')
-                    ->on('branches')
-                    ->nullOnDelete();
+                    ->on('divisions')
+                    ->onUpdate('restrict')
+                    ->onDelete('cascade');
             }
             $table->string('name');
             $table->string('guard_name');
@@ -70,7 +71,7 @@ return new class extends Migration {
                 $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
                 $table->foreign($columnNames['team_foreign_key'])
                     ->references('id')
-                    ->on('branches')
+                    ->on('divisions')
                     ->onUpdate('restrict')
                     ->onDelete('cascade');
 
@@ -102,7 +103,7 @@ return new class extends Migration {
                 $table->index($columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index');
                 $table->foreign($columnNames['team_foreign_key'])
                     ->references('id')
-                    ->on('branches')
+                    ->on('divisions')
                     ->onUpdate('restrict')
                     ->onDelete('cascade');
 
