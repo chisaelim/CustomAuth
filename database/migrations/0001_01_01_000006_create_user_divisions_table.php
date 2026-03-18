@@ -14,6 +14,9 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index('user_id');
             $table->uuid('division_id')->index('division_id');
+            $table->uuid('created_by')->index('created_by');
+            $table->uuid('updated_by')->index('updated_by');
+            $table->uuid('deleted_by')->index('deleted_by');
         });
     }
 

@@ -23,6 +23,9 @@ return new class extends Migration {
                 ->on('divisions')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
+            $table->foreign(['created_by'], 'user_divisions_ibfk_100')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign(['updated_by'], 'user_divisions_ibfk_200')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign(['deleted_by'], 'user_divisions_ibfk_300')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 
@@ -34,6 +37,9 @@ return new class extends Migration {
         Schema::table('user_divisions', function (Blueprint $table) {
             $table->dropForeign('user_divisions_ibfk_1');
             $table->dropForeign('user_divisions_ibfk_2');
+            $table->dropForeign('user_divisions_ibfk_100');
+            $table->dropForeign('user_divisions_ibfk_200');
+            $table->dropForeign('user_divisions_ibfk_300');
         });
     }
 };

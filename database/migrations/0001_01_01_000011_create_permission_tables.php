@@ -39,11 +39,6 @@ return new class extends Migration {
             if ($teams || config('permission.testing')) { // permission.testing is a fix for sqlite testing
                 $table->uuid($columnNames['team_foreign_key'])->nullable();
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
-                $table->foreign($columnNames['team_foreign_key'])
-                    ->references('id')
-                    ->on('divisions')
-                    ->onUpdate('restrict')
-                    ->onDelete('cascade');
             }
             $table->string('name');
             $table->string('guard_name');
@@ -69,11 +64,6 @@ return new class extends Migration {
             if ($teams) {
                 $table->uuid($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
-                $table->foreign($columnNames['team_foreign_key'])
-                    ->references('id')
-                    ->on('divisions')
-                    ->onUpdate('restrict')
-                    ->onDelete('cascade');
 
                 $table->primary(
                     [$columnNames['team_foreign_key'], $pivotPermission, $columnNames['model_morph_key'], 'model_type'],
@@ -101,11 +91,6 @@ return new class extends Migration {
             if ($teams) {
                 $table->uuid($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index');
-                $table->foreign($columnNames['team_foreign_key'])
-                    ->references('id')
-                    ->on('divisions')
-                    ->onUpdate('restrict')
-                    ->onDelete('cascade');
 
                 $table->primary(
                     [$columnNames['team_foreign_key'], $pivotRole, $columnNames['model_morph_key'], 'model_type'],

@@ -20,6 +20,9 @@ return new class extends Migration {
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+            $table->uuid('created_by')->index('created_by')->nullable();
+            $table->uuid('updated_by')->index('updated_by')->nullable();
+            $table->uuid('deleted_by')->index('deleted_by')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

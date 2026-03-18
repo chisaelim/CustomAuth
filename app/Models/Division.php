@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Division extends Model
@@ -36,20 +37,13 @@ class Division extends Model
         return $this->belongsToMany(\App\Models\User::class, 'user_divisions', 'division_id', 'user_id');
     }
 
-    public function main_division(): BelongsToMany
+    public function division(): BelongsTo
     {
-        return $this->belongsToMany(self::class, 'division_divisions', 'sub_division_id', 'main_division_id');
+        return $this->belongsTo(\App\Models\Division::class, 'division_id');
     }
 
-    public function sub_divisions(): HasManyThrough
+    public function divisions(): HasMany
     {
-        return $this->hasManyThrough(
-            self::class,
-            DivisionDivision::class,
-            'main_division_id', // Foreign key on the division_divisions table...
-            'id', // Foreign key on the divisions table...
-            'id', // Local key on the divisions table...
-            'sub_division_id' // Local key on the division_divisions table...
-        );
+        return $this->hasMany(\App\Models\Division::class, 'division_id');
     }
 }
