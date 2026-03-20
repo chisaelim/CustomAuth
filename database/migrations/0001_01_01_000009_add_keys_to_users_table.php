@@ -11,6 +11,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table
+                ->foreign(['instance_id'], 'users_ibfk_1')
+                ->references('id')
+                ->on('instances')
+                ->onUpdate('restrict')
+                ->onDelete('cascade');
             $table->foreign(['created_by'], 'users_ibfk_100')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
             $table->foreign(['updated_by'], 'users_ibfk_200')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
             $table->foreign(['deleted_by'], 'users_ibfk_300')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
@@ -23,6 +29,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('users_ibfk_1');
             $table->dropForeign('users_ibfk_100');
             $table->dropForeign('users_ibfk_200');
             $table->dropForeign('users_ibfk_300');

@@ -3,10 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use App\Models\UserShop;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -32,6 +35,7 @@ class User extends Authenticatable
         'name',
         'username',
         'email',
+        'instance_id',
         'password',
     ];
 
@@ -75,8 +79,56 @@ class User extends Authenticatable
         return static::query()->whereLogin($login)->first();
     }
 
-    public function divisions(): BelongsToMany
+    public function instance(): BelongsTo
     {
-        return $this->belongsToMany(\App\Models\Division::class, 'user_divisions', 'user_id', 'division_id');
+        return $this->belongsTo(Instance::class, 'instance_id');
+    }
+
+    public function userShops(): HasMany
+    {
+        return $this->hasMany(UserShop::class, 'user_id');
+    }
+
+    public function shops(): BelongsToMany
+    {
+        return $this->belongsToMany(Shop::class, 'user_shops', 'user_id', 'shop_id')
+            ->withPivot(['id', 'created_by', 'updated_by', 'deleted_by']);
+    }
+
+    public function assignToInstance(Instance|string $instance, User|string|null $actor = null): self
+    {
+        $instanceId = $instance instanceof Instance ? $instance->getKey() : $instance;
+        $actorId = $actor instanceof User ? $actor->getKey() : ($actor ?? $this->getKey());
+
+        if (! $this->created_by) {
+            $this->created_by = $actorId;
+        }
+
+        $this->instance_id = $instanceId;
+        $this->updated_by = $actorId;
+        $this->save();
+
+        return $this;
+    }
+
+    public function assignToShop(Shop|string $shop, User|string|null $actor = null): UserShop
+    {
+        $shopId = $shop instanceof Shop ? $shop->getKey() : $shop;
+        $actorId = $actor instanceof User ? $actor->getKey() : ($actor ?? $this->getKey());
+
+        $userShop = UserShop::firstOrNew([
+            'user_id' => $this->getKey(),
+            'shop_id' => $shopId,
+        ]);
+
+        if (! $userShop->exists) {
+            $userShop->created_by = $actorId;
+            $userShop->deleted_by = $actorId;
+        }
+
+        $userShop->updated_by = $actorId;
+        $userShop->save();
+
+        return $userShop;
     }
 }

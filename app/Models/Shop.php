@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\UserShop;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,11 +11,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Division extends Model
+class Shop extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
-    protected $table = 'divisions';
+    protected $table = 'shops';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $timestamps = true;
@@ -22,7 +23,7 @@ class Division extends Model
 
     protected $fillable = [
         'name',
-        'rank',
+        'instance_id',
     ];
 
     protected function casts(): array
@@ -32,18 +33,26 @@ class Division extends Model
         ];
     }
 
+    public function instance(): BelongsTo
+    {
+        return $this->belongsTo(Instance::class, 'instance_id');
+    }
+
+    public function userShops(): HasMany
+    {
+        return $this->hasMany(UserShop::class, 'shop_id');
+    }
+
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Models\User::class, 'user_divisions', 'division_id', 'user_id');
+        return $this->belongsToMany(User::class, 'user_shops', 'shop_id', 'user_id')
+            ->withPivot(['id', 'created_by', 'updated_by', 'deleted_by']);
     }
 
-    public function division(): BelongsTo
+    public function assignUser(User|string $user, User|string|null $actor = null): UserShop
     {
-        return $this->belongsTo(\App\Models\Division::class, 'division_id');
-    }
+        $userModel = $user instanceof User ? $user : User::findOrFail($user);
 
-    public function divisions(): HasMany
-    {
-        return $this->hasMany(\App\Models\Division::class, 'division_id');
+        return $userModel->assignToShop($this, $actor);
     }
 }

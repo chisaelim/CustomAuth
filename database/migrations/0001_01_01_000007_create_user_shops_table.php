@@ -10,16 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('divisions', function (Blueprint $table) {
+        Schema::create('user_shops', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->enum('rank', ['RANK1', 'RANK2']);
-            $table->uuid('division_id')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->uuid('user_id')->index('user_id');
+            $table->uuid('shop_id')->index('shop_id');
             $table->uuid('created_by')->index('created_by');
             $table->uuid('updated_by')->index('updated_by');
             $table->uuid('deleted_by')->index('deleted_by');
+            $table->unique(['user_id', 'shop_id'], 'user_shops_user_id_shop_id_unique');
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('divisions');
+        Schema::dropIfExists('user_shops');
     }
 };

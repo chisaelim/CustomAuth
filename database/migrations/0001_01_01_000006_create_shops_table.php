@@ -10,10 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user_divisions', function (Blueprint $table) {
+        Schema::create('shops', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->index('user_id');
-            $table->uuid('division_id')->index('division_id');
+            $table->string('name');
+            $table->timestamps();
+            $table->softDeletes();
+            $table->uuid('instance_id')->index('instance_id');
             $table->uuid('created_by')->index('created_by');
             $table->uuid('updated_by')->index('updated_by');
             $table->uuid('deleted_by')->index('deleted_by');
@@ -25,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_divisions');
+        Schema::dropIfExists('shops');
     }
 };
