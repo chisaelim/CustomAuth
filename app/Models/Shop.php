@@ -48,11 +48,4 @@ class Shop extends Model
         return $this->belongsToMany(User::class, 'user_shops', 'shop_id', 'user_id')
             ->withPivot(['id', 'created_by', 'updated_by', 'deleted_by']);
     }
-
-    public function assignUser(User|string $user, User|string|null $actor = null): UserShop
-    {
-        $userModel = $user instanceof User ? $user : User::findOrFail($user);
-
-        return $userModel->assignToShop($this, $actor);
-    }
 }

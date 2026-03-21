@@ -14,9 +14,11 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index('user_id');
             $table->uuid('shop_id')->index('shop_id');
+            $table->timestamps();
+            $table->softDeletes();
             $table->uuid('created_by')->index('created_by');
             $table->uuid('updated_by')->index('updated_by');
-            $table->uuid('deleted_by')->index('deleted_by');
+            $table->uuid('deleted_by')->index('deleted_by')->nullable();
             $table->unique(['user_id', 'shop_id'], 'user_shops_user_id_shop_id_unique');
         });
     }

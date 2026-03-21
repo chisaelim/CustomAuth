@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserShop extends Model
 {
-    use HasUuids;
+    use HasUuids, SoftDeletes;
 
     protected $table = 'user_shops';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
-    public $timestamps = false;
+    public $timestamps = true;
     public $incrementing = false;
 
     protected $fillable = [
@@ -23,6 +24,13 @@ class UserShop extends Model
         'updated_by',
         'deleted_by',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'deleted_at' => 'datetime',
+        ];
+    }
 
     public function user(): BelongsTo
     {

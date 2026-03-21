@@ -38,11 +38,4 @@ class Instance extends Model
     {
         return $this->hasMany(Shop::class, 'instance_id');
     }
-
-    public function assignUser(User|string $user, User|string|null $actor = null): User
-    {
-        $userModel = $user instanceof User ? $user : User::findOrFail($user);
-
-        return $userModel->assignToInstance($this, $actor);
-    }
 }
