@@ -1,4 +1,5 @@
-import Signin from '@components/account/Signin.vue';
+import Login from '@components/auth/Login.vue';
+import Logout from '@components/auth/Logout.vue';
 import Dashboard from '@components/pages/Dashboard.vue';
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -7,8 +8,13 @@ export default createRouter({
   routes: [
     {
       path: '/',
-      name: 'auth.signin',
-      component: Signin,
+      name: 'auth.logout',
+      component: Logout,
+    },
+    {
+      path: '/',
+      name: 'auth.login',
+      component: Login,
     },
     {
       path: '/dashboard',

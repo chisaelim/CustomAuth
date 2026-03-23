@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\UserShop;
+use App\Traits\UserLog;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Shop extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes;
+    use HasFactory, HasUuids, SoftDeletes, UserLog;
 
     protected $table = 'shops';
     protected $primaryKey = 'id';

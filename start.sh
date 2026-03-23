@@ -11,8 +11,7 @@ npm install
 wait $!
 
 # Generate key and run migrations first
-# php artisan db:wipe --force
-# wait $!
+
 php artisan db:wipe --force
 wait $!
 
@@ -20,6 +19,9 @@ php artisan key:generate --force
 wait $!
 
 php artisan migrate --force
+wait $!
+
+php artisan db:seed --force
 wait $!
 
 # THEN clear caches (this preserves the built assets)

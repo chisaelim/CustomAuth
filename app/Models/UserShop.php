@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UserLog;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserShop extends Model
 {
-    use HasUuids, SoftDeletes;
+    use HasUuids, SoftDeletes, UserLog;
 
     protected $table = 'user_shops';
     protected $primaryKey = 'id';
